@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="score" id="score">0</div>
+            <div class="stats">
+                <div class="stat-item">
+                    <span>🎯</span>
+                    <span id="difficulty">Easy</span>
+                </div>
+                <div class="stat-item">
+                    <span>❌</span>
+                    <span id="errors">0/3</span>
+                </div>
+                <div class="stat-item">
+                    <span>⏱️</span>
+                    <span id="timer">00:00</span>
+                </div>
+            </div>
+            <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+        </div>
+
+        <div class="difficulty-selector" id="difficultySelector">
+            <div style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #f3f4f6;">
+                Select Difficulty
+            </div>
+            <div style="text-align: center;">
+                <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+                <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+                <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+                <button class="difficulty-btn" data-difficulty="expert">Expert</button>
+                <button class="difficulty-btn" data-difficulty="master">Master</button>
+            </div>
+        </div>
+
+        <div class="sudoku-grid" id="sudokuGrid"></div>
+
+        <div class="controls">
+            <button class="control-btn" onclick="undo()">
+                <div class="icon">↶</div>
+                <div>Undo</div>
+            </button>
+            <button class="control-btn" onclick="clearCell()">
+                <div class="icon">⌫</div>
+                <div>Clear</div>
+            </button>
+            <button class="control-btn" id="notesBtn" onclick="toggleNotes()">
+                <div class="icon">✏️</div>
+                <div>Notes</div>
+                <div style="font-size: 10px; opacity: 0.7;">OFF</div>
+            </button>
+            <button class="control-btn" onclick="getHint()">
+                <div class="icon">💡</div>
+                <div>Hint</div>
+                <div class="hint-badge" id="hintCount">3</div>
+            </button>
+        </div>
+
+        <div class="number-bar">
+            <button class="number-btn" onclick="inputNumber(1)">1</button>
+            <button class="number-btn" onclick="inputNumber(2)">2</button>
+            <button class="number-btn" onclick="inputNumber(3)">3</button>
+            <button class="number-btn" onclick="inputNumber(4)">4</button>
+            <button class="number-btn" onclick="inputNumber(5)">5</button>
+            <button class="number-btn" onclick="inputNumber(6)">6</button>
+            <button class="number-btn" onclick="inputNumber(7)">7</button>
+            <button class="number-btn" onclick="inputNumber(8)">8</button>
+            <button class="number-btn" onclick="inputNumber(9)">9</button>
+        </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <div class="game-over-content">
+            <h2 id="gameOverTitle">Game Over!</h2>
+            <p id="gameOverMessage">You've completed the puzzle!</p>
+            <button onclick="newGame()">New Game</button>
+            <button onclick="closeGameOver()">Close</button>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
