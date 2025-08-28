@@ -474,6 +474,14 @@ class SudokuGame {
         document.getElementById('errors').textContent = `${this.errors}/${this.maxErrors}`;
         document.getElementById('hintCount').textContent = this.hints;
         document.getElementById('score').textContent = Math.floor((Date.now() - this.startTime) / 1000);
+        
+        // Also update the header stats for consistency
+        const headerStats = document.querySelectorAll('.header .stat-item span:last-child');
+        if (headerStats.length >= 3) {
+            headerStats[0].textContent = this.difficultyLevels[this.difficulty].name;
+            headerStats[1].textContent = `${this.errors}/${this.maxErrors}`;
+            headerStats[2].textContent = document.getElementById('timer').textContent;
+        }
     }
 
     setDifficulty(difficulty) {

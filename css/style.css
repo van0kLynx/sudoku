@@ -32,72 +32,65 @@ body {
 }
 
 .header {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    color: white;
-    padding: 15px;
-    text-align: center;
-    position: relative;
+    display: none;
 }
 
 .back-btn {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
+    display: none;
 }
 
 .settings-btn {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
+    display: none;
 }
 
 .score {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    display: none;
 }
 
 .stats {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    opacity: 0.9;
+    display: none;
 }
 
 .stat-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    display: none;
 }
 
 .difficulty-selector {
     background: linear-gradient(145deg, #374151 0%, #1f2937 100%);
-    padding: 12px;
+    padding: 8px 12px;
     border-bottom: 1px solid #4b5563;
     color: #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.game-info {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .difficulty-btn {
     background: linear-gradient(145deg, #4b5563 0%, #374151 100%);
     border: 2px solid transparent;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 25px;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s;
     color: #d1d5db;
+    font-size: 12px;
+    min-width: 50px;
 }
 
 .difficulty-btn.active {
@@ -130,6 +123,8 @@ body {
     margin: 12px;
     border: 2px solid #4b5563;
     gap: 1px;
+    flex: 1;
+    min-height: 0;
 }
 
 .sudoku-row {
@@ -153,7 +148,7 @@ body {
 }
 
 .cell {
-    width: 35px;
+    width: 37px;
     height: 35px;
     background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
     background: -webkit-linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
@@ -246,8 +241,8 @@ body {
     flex-direction: row;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    gap: 8px;
-    padding: 12px;
+    gap: 4px;
+    padding: 6px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -255,15 +250,15 @@ body {
 .control-btn {
     background: linear-gradient(145deg, #4b5563 0%, #374151 100%);
     border: none;
-    padding: 12px 8px;
-    border-radius: 10px;
+    padding: 4px 3px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    font-size: 11px;
+    gap: 2px;
+    font-size: 8px;
     color: #d1d5db;
     border: 1px solid #6b7280;
     flex: 1;
@@ -282,20 +277,20 @@ body {
 }
 
 .control-btn .icon {
-    font-size: 18px;
+    font-size: 10px;
 }
 
 .hint-badge {
     background: #1976d2;
     color: white;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
-    margin-top: -5px;
+    font-size: 6px;
+    margin-top: -2px;
 }
 
 .number-bar {
@@ -308,8 +303,8 @@ body {
     flex-direction: row;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    gap: 4px;
-    padding: 12px;
+    gap: 3px;
+    padding: 8px;
     background: linear-gradient(145deg, #374151 0%, #1f2937 100%);
     background: -webkit-linear-gradient(145deg, #374151 0%, #1f2937 100%);
     width: 100%;
@@ -319,10 +314,10 @@ body {
 .number-btn {
     background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
     border: 2px solid #6b7280;
-    padding: 12px 4px;
-    border-radius: 10px;
+    padding: 8px 3px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     transition: all 0.3s;
     color: #1e293b;
@@ -389,55 +384,102 @@ body {
     .game-container {
         border-radius: 0;
         max-width: 100%;
+        width: 100vw;
         height: 100vh;
         margin: 0;
+        box-shadow: none;
+        border: none;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .difficulty-selector {
+        padding: 6px 8px;
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .game-info {
+        justify-content: center;
+        font-size: 11px;
+        gap: 12px;
+    }
+    
+    .difficulty-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+        min-width: 45px;
     }
     
     .sudoku-grid {
-        margin: 8px;
-        padding: 8px;
+        margin: 4px;
+        padding: 4px;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 0;
+    }
+    
+    .sudoku-row {
+        height: calc((100vh - 200px) / 9);
+        gap: 1px;
     }
     
     .cell {
-        font-size: 18px;
-        width: 32px;
-        height: 32px;
+        font-size: calc((100vh - 200px) / 9 * 0.6);
+        width: calc((100vh - 200px) / 9);
+        height: calc((100vh - 200px) / 9);
+        min-width: 25px;
+        min-height: 25px;
     }
 
     .controls {
-        padding: 8px;
-        gap: 6px;
+        padding: 6px;
+        gap: 4px;
+        justify-content: space-around;
+        flex-shrink: 0;
     }
 
     .control-btn {
-        padding: 8px 6px;
-        font-size: 10px;
+        padding: 6px 4px;
+        font-size: 9px;
+        flex: 1;
+        min-width: 50px;
     }
 
     .number-bar {
-        padding: 8px;
-        gap: 3px;
+        padding: 6px;
+        gap: 2px;
+        justify-content: space-around;
+        flex-shrink: 0;
     }
 
     .number-btn {
-        padding: 8px 3px;
-        font-size: 18px;
+        padding: 6px 2px;
+        font-size: 16px;
+        flex: 1;
+        min-width: 25px;
     }
+}
 
-    .header {
-        padding: 10px;
+/* Medium screen responsive design */
+@media (min-width: 481px) and (max-width: 768px) {
+    .game-container {
+        max-width: 90vw;
+        margin: 20px auto;
     }
-
-    .difficulty-selector {
-        padding: 8px;
+    
+    .cell {
+        width: calc((90vw - 48px) / 9);
+        height: calc((90vw - 48px) / 9);
+        font-size: calc((90vw - 48px) / 9 * 0.7);
+        min-width: 35px;
+        min-height: 35px;
     }
-
-    .score {
-        font-size: 20px;
-    }
-
-    .stats {
-        font-size: 12px;
+    
+    .sudoku-row {
+        height: calc((90vw - 48px) / 9);
     }
 }
 
