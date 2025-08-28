@@ -35,6 +35,14 @@ body {
     display: none;
 }
 
+.game-info {
+    display: none;
+}
+
+.info-item {
+    display: none;
+}
+
 .back-btn {
     display: none;
 }
@@ -108,7 +116,7 @@ body {
 }
 
 .sudoku-grid {
-    padding: 8px;
+    padding: 4px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -120,12 +128,13 @@ body {
     background: -webkit-linear-gradient(145deg, #1f2937 0%, #111827 100%);
     border-radius: 10px;
     -webkit-border-radius: 10px;
-    margin: 8px;
+    margin: 0;
     border: 2px solid #4b5563;
     gap: 1px;
     flex: 1;
     min-height: 0;
     max-width: 100%;
+    max-height: 450px;
     overflow: hidden;
 }
 
@@ -249,6 +258,7 @@ body {
     padding: 6px;
     width: 100%;
     box-sizing: border-box;
+    margin: 0;
 }
 
 .control-btn {
@@ -307,26 +317,29 @@ body {
     flex-direction: row;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    gap: 3px;
-    padding: 8px;
+    gap: 6px;
+    padding: 12px;
     background: linear-gradient(145deg, #374151 0%, #1f2937 100%);
     background: -webkit-linear-gradient(145deg, #374151 0%, #1f2937 100%);
     width: 100%;
     box-sizing: border-box;
+    justify-content: center;
+    margin: 0;
 }
 
 .number-btn {
     background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
     border: 2px solid #6b7280;
-    padding: 8px 3px;
-    border-radius: 8px;
+    padding: 16px 8px;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: bold;
     transition: all 0.3s;
     color: #1e293b;
-    flex: 1;
-    min-width: 0;
+    flex: 0 0 calc(20% - 6px);
+    min-width: 60px;
+    margin-bottom: 6px;
 }
 
 .number-btn:hover {
@@ -416,7 +429,7 @@ body {
     }
     
     .sudoku-grid {
-        margin: 4px;
+        margin: 0;
         padding: 4px;
         flex: 1;
         display: flex;
@@ -459,17 +472,18 @@ body {
     }
 
     .number-bar {
-        padding: 6px;
-        gap: 2px;
-        justify-content: space-around;
+        padding: 8px;
+        gap: 4px;
+        justify-content: center;
         flex-shrink: 0;
     }
 
     .number-btn {
-        padding: 6px 2px;
-        font-size: 16px;
-        flex: 1;
-        min-width: 25px;
+        padding: 12px 6px;
+        font-size: 20px;
+        flex: 0 0 calc(20% - 4px);
+        min-width: 50px;
+        margin-bottom: 4px;
     }
 }
 
