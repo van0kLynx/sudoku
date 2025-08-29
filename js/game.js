@@ -312,11 +312,7 @@ class SudokuGame {
             }
             this.board[row][col] = 0;
         } else {
-            // Input number
-            this.notes[row][col].clear();
-            this.board[row][col] = num;
-            
-            // Check if valid
+            // Check if valid BEFORE placing the number
             if (!this.isValid(row, col, num)) {
                 this.errors++;
                 
@@ -351,6 +347,10 @@ class SudokuGame {
                     cell.classList.remove('invalid');
                 }
             }
+            
+            // Input number AFTER validation
+            this.notes[row][col].clear();
+            this.board[row][col] = num;
         }
         
         this.renderBoard();
