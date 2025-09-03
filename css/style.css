@@ -507,6 +507,27 @@ body {
     }
 }
 
+/* Version display */
+.version-display {
+    position: fixed;
+    top: 3px;
+    right: 2px;
+    background: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-family: monospace;
+    z-index: 1000;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.version-display span {
+    opacity: 0.8;
+}
+
 /* iOS Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
     .cell {

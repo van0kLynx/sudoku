@@ -1,3 +1,6 @@
+// Game version - update this with each release
+const GAME_VERSION = '1.2.0';
+
 class SudokuGame {
     constructor() {
         this.board = Array(9).fill().map(() => Array(9).fill(0));
@@ -641,7 +644,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-
+    // Update version display
+    const versionElement = document.getElementById('versionNumber');
+    if (versionElement) {
+        versionElement.textContent = `v${GAME_VERSION}`;
+    }
 });
 
 // Global functions for button clicks
