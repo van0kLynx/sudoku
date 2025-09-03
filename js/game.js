@@ -48,16 +48,33 @@ class SudokuGame {
     }
 
     generateSolvedBoard() {
-        // Simple Sudoku generation - in a real app you'd want a more sophisticated algorithm
+        // Generate a valid Sudoku solution
         this.board = Array(9).fill().map(() => Array(9).fill(0));
         
-        // Fill diagonal 3x3 boxes first
+        // Fill diagonal 3x3 boxes first (these don't interfere with each other)
         this.fillBox(0, 0);
         this.fillBox(3, 3);
         this.fillBox(6, 6);
         
-        // Fill remaining cells
+        // Solve the remaining cells using backtracking
         this.solveSudoku();
+        
+        // Verify the solution is valid
+        if (!this.isValidSolution()) {
+            // If invalid, regenerate
+            this.generateSolvedBoard();
+        }
+    }
+    
+    isValidSolution() {
+        // Check if the current board is a valid Sudoku solution
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                if (this.board[row][col] === 0) return false;
+                if (!this.isValid(row, col, this.board[row][col])) return false;
+            }
+        }
+        return true;
     }
 
     fillBox(row, col) {
@@ -75,7 +92,11 @@ class SudokuGame {
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
                 if (this.board[row][col] === 0) {
-                    for (let num = 1; num <= 9; num++) {
+                    // Try numbers 1-9 in random order for better variety
+                    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                    this.shuffleArray(numbers);
+                    
+                    for (let num of numbers) {
                         if (this.isValid(row, col, num)) {
                             this.board[row][col] = num;
                             if (this.solveSudoku()) {
@@ -89,6 +110,13 @@ class SudokuGame {
             }
         }
         return true;
+    }
+    
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
 
     isValid(row, col, num) {
@@ -118,14 +146,115 @@ class SudokuGame {
 
     removeNumbers(count) {
         let removed = 0;
-        while (removed < count) {
-            const row = Math.floor(Math.random() * 9);
-            const col = Math.floor(Math.random() * 9);
-            if (this.board[row][col] !== 0) {
-                this.board[row][col] = 0;
-                removed++;
+        let attempts = 0;
+        const maxAttempts = 1000;
+        
+        // Create a list of all filled positions
+        const filledPositions = [];
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                if (this.board[row][col] !== 0) {
+                    filledPositions.push({ row, col });
+                }
             }
         }
+        
+        // Shuffle the positions for random removal
+        this.shuffleArray(filledPositions);
+        
+        for (let pos of filledPositions) {
+            if (removed >= count) break;
+            
+            // Store the original value
+            const originalValue = this.board[pos.row][pos.col];
+            
+            // Temporarily remove the number
+            this.board[pos.row][pos.col] = 0;
+            
+            // Check if the puzzle still has a unique solution
+            if (this.hasUniqueSolution()) {
+                removed++;
+            } else {
+                // Restore the number if it breaks uniqueness
+                this.board[pos.row][pos.col] = originalValue;
+            }
+            
+            attempts++;
+            if (attempts >= maxAttempts) break;
+        }
+    }
+    
+    hasUniqueSolution() {
+        // Create a copy of the current board
+        const tempBoard = this.board.map(row => [...row]);
+        
+        // Count solutions
+        this.solutionCount = 0;
+        this.countSolutions(tempBoard, 0, 0);
+        
+        return this.solutionCount === 1;
+    }
+    
+    countSolutions(board, row, col) {
+        // If we've found more than one solution, stop counting
+        if (this.solutionCount > 1) return;
+        
+        // If we've reached the end, we found a solution
+        if (row === 9) {
+            this.solutionCount++;
+            return;
+        }
+        
+        // Move to next cell
+        let nextRow = row;
+        let nextCol = col + 1;
+        if (nextCol === 9) {
+            nextRow++;
+            nextCol = 0;
+        }
+        
+        // If current cell is already filled, move to next
+        if (board[row][col] !== 0) {
+            this.countSolutions(board, nextRow, nextCol);
+            return;
+        }
+        
+        // Try each number 1-9
+        for (let num = 1; num <= 9; num++) {
+            if (this.isValidForBoard(board, row, col, num)) {
+                board[row][col] = num;
+                this.countSolutions(board, nextRow, nextCol);
+                board[row][col] = 0;
+                
+                // If we found more than one solution, stop
+                if (this.solutionCount > 1) return;
+            }
+        }
+    }
+    
+    isValidForBoard(board, row, col, num) {
+        // Check row
+        for (let x = 0; x < 9; x++) {
+            if (x !== col && board[row][x] === num) return false;
+        }
+        
+        // Check column
+        for (let x = 0; x < 9; x++) {
+            if (x !== row && board[x][col] === num) return false;
+        }
+        
+        // Check 3x3 box
+        const startRow = Math.floor(row / 3) * 3;
+        const startCol = Math.floor(col / 3) * 3;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const checkRow = startRow + i;
+                const checkCol = startCol + j;
+                if ((checkRow !== row || checkCol !== col) && board[checkRow][checkCol] === num) return false;
+            }
+        }
+        
+        return true;
     }
 
     renderBoard() {
@@ -497,6 +626,8 @@ class SudokuGame {
 
 let game;
 
+
+
 // Initialize game
 document.addEventListener('DOMContentLoaded', () => {
     game = new SudokuGame();
@@ -509,6 +640,8 @@ document.addEventListener('DOMContentLoaded', () => {
             game.setDifficulty(btn.dataset.difficulty);
         });
     });
+    
+
 });
 
 // Global functions for button clicks
